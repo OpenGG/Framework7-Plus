@@ -2,7 +2,7 @@
 })();
 
 // Export Dom7 to Framework7
-Framework7.$ = Dom7;
+//Framework7.$ = Dom7;
 
 // Export to local scope
 var $ = Dom7;
