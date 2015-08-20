@@ -179,9 +179,13 @@ Dom7.prototype = {
             var target = e.target;
             if ($(target).is(targetSelector)) listener.call(target, e);
             else {
-                var parents = $(target).parents();
-                for (var k = 0; k < parents.length; k++) {
-                    if ($(parents[k]).is(targetSelector)) listener.call(parents[k], e);
+                var parentNode = target.parentNode;
+                while(parentNode){
+                    if($(parentNode).is(targetSelector)){
+                        return listener.call(parentNode, e);
+                    }else{
+                        parentNode = parentNode.parentNode;
+                    }
                 }
             }
         }
@@ -635,11 +639,12 @@ Dom7.prototype = {
     parent: function (selector) {
         var parents = [];
         for (var i = 0; i < this.length; i++) {
+            var parent = this[i].parentNode;
             if (selector) {
-                if ($(this[i].parentNode).is(selector)) parents.push(this[i].parentNode);
+                if ($(parent).is(selector)) parents.push(parent);
             }
             else {
-                parents.push(this[i].parentNode);
+                parents.push(parent);
             }
         }
         return $($.unique(parents));
